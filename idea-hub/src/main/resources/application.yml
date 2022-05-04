@@ -3,16 +3,6 @@ spring:
     active: dev
 server:
   port: 8080
-jwt:
-  header: Authorization
-  secret: mySecret
-  expiration: 10
-  tokenHead: Bearer
-  route:
-    authentication:
-      path: auth/login
-      refresh: auth/refresh
-      register: auth/register
 mybatis-plus:
   configuration:
     cache-enabled: true
