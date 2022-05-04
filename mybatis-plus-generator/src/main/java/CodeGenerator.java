@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Scanner;
+
 @Builder
 @Slf4j
 public class CodeGenerator {
@@ -49,7 +51,9 @@ public class CodeGenerator {
     private String schema;
 
     public static void main(String[] args) {
-        String outputDir = "C:\\Users\\runhui.chen\\IdeaProjects\\idea-hub-group\\idea-hub\\src\\main\\java";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("输入项目地址（到java文件夹）:");
+        String outputDir = scanner.nextLine();
 
         CodeGenerator.builder()
                 // >>> 通常手工配置项 Start
@@ -62,7 +66,7 @@ public class CodeGenerator {
                 .packageName("com.junshijun.hub.idea")
                 .modelName(null)
                 .tableNames(new String[]{
-                        "sys_user"
+                        "sys_role", "sys_user", "sys_permission", "sys_role_permission", "sys_user_role"
                 })
                 // <<<< 通常手工配置项 End
                 .build()
@@ -107,7 +111,6 @@ public class CodeGenerator {
 
     public GlobalConfig globalConfigBuilder() {
         return new GlobalConfig.Builder()
-                .fileOverride()
                 .outputDir(outputDir)
                 .author(author)
                 .dateType(DateType.TIME_PACK)
@@ -138,7 +141,7 @@ public class CodeGenerator {
                 .entityBuilder()
                 .naming(NamingStrategy.underline_to_camel)
                 .idType(IdType.ASSIGN_ID)   // ID生成用自带雪花算法
-                .enableLombok() // 开启lombok
+                .enableLombok()// 开启lombok
                 .enableChainModel()
                 .enableTableFieldAnnotation()
                 .versionColumnName(VERSION_COLUMN_NAME)          // 乐观锁列名
