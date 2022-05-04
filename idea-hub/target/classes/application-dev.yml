@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.34.182.153:3306/idea_hub?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8&useSSL=true&tinyInt1isBit=false&rewriteBatchedStatements=true&allowMultiQueries=true
+    username: root
+    password: crh123456
+  data:
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
