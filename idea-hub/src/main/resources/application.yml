@@ -21,3 +21,13 @@ mybatis-plus:
       logic-delete-field: isDeleted
       logic-delete-value: "null"
       logic-not-delete-value: 0
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 10
+  tokenHead: Bearer
+  route:
+    authentication:
+      path: auth/login
+      refresh: auth/refresh
+      register: auth/register
