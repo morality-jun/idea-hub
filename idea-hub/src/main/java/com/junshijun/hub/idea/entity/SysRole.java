@@ -9,43 +9,43 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户表
+ * 角色表
  * </p>
  *
  * @author 节操君
- * @since 2022-05-02
+ * @since 2022-05-04
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Accessors(chain = true)
-@TableName("sys_user")
-public class SysUser implements Serializable {
+@TableName("sys_role")
+public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户主键
+     * 角色主键
      */
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
-    private Long userId;
+    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
+    private Long roleId;
 
     /**
-     * 用户账号
+     * 角色编号
      */
-    @TableField("login_name")
-    private String loginName;
+    @TableField("role_code")
+    private String roleCode;
 
     /**
-     * 用户密码
+     * 角色名称
      */
-    @TableField("password")
-    private String password;
+    @TableField("role_name")
+    private String roleName;
 
     /**
      * 版本号
@@ -86,9 +86,11 @@ public class SysUser implements Serializable {
     private LocalDateTime modifiedTime;
 
 
-    public static final String USER_ID = "user_id";
+    public static final String ROLE_ID = "role_id";
 
-    public static final String LOGIN_NAME = "login_name";
+    public static final String ROLE_CODE = "role_code";
+
+    public static final String ROLE_NAME = "role_name";
 
     public static final String VERSION = "version";
 

@@ -9,43 +9,43 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户表
+ * 权限表
  * </p>
  *
  * @author 节操君
- * @since 2022-05-02
+ * @since 2022-05-04
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Accessors(chain = true)
-@TableName("sys_user")
-public class SysUser implements Serializable {
+@TableName("sys_permission")
+public class SysPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户主键
+     * 权限主键
      */
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
-    private Long userId;
+    @TableId(value = "permission_id", type = IdType.ASSIGN_ID)
+    private Long permissionId;
 
     /**
-     * 用户账号
+     * 权限编码
      */
-    @TableField("login_name")
-    private String loginName;
+    @TableField("permission_code")
+    private String permissionCode;
 
     /**
-     * 用户密码
+     * 权限名称
      */
-    @TableField("password")
-    private String password;
+    @TableField("permission_name")
+    private String permissionName;
 
     /**
      * 版本号
@@ -86,9 +86,11 @@ public class SysUser implements Serializable {
     private LocalDateTime modifiedTime;
 
 
-    public static final String USER_ID = "user_id";
+    public static final String PERMISSION_ID = "permission_id";
 
-    public static final String LOGIN_NAME = "login_name";
+    public static final String PERMISSION_CODE = "permission_code";
+
+    public static final String PERMISSION_NAME = "permission_name";
 
     public static final String VERSION = "version";
 

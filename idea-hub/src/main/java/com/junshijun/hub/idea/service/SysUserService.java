@@ -1,6 +1,10 @@
 package com.junshijun.hub.idea.service;
 
+import com.junshijun.hub.idea.entity.SysPermission;
+import com.junshijun.hub.idea.entity.SysRole;
 import com.junshijun.hub.idea.entity.SysUser;
+
+import java.util.List;
 
 public interface SysUserService {
 
@@ -12,11 +16,16 @@ public interface SysUserService {
     SysUser getUserByLoginName(String loginName);
 
     /**
-     * 通过用户主键查询用户信息
+     * 通过用户主键查询角色
      * @param userId
      * @return
      */
-    SysUser getUserById(Long userId);
+    List<SysRole> getRoleByUserId(Long userId);
 
-
+    /**
+     * 通过用户主键查询权限
+     * @param userId
+     * @return
+     */
+    List<SysPermission> getPermissionByUserId(Long userId);
 }
