@@ -24,10 +24,6 @@ mybatis-plus:
 jwt:
   header: Authorization
   secret: mySecret
-  expiration: 10
-  tokenHead: Bearer
-  route:
-    authentication:
-      path: auth/login
-      refresh: auth/refresh
-      register: auth/register
+  expiration: 3400
+  tokenPrefix: Bearer
+  antMatchers: /auth/login,/auth/refresh,/auth/register

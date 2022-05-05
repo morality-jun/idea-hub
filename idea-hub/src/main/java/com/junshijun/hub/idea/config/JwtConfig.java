@@ -16,7 +16,7 @@ public class JwtConfig {
     /**
      * Header Key
      */
-    public static String tokenHeader;
+    public static String header;
 
     /**
      * Token前缀
@@ -46,8 +46,8 @@ public class JwtConfig {
         this.secret = secret;
     }
 
-    public void setTokenHeader(String tokenHeader) {
-        this.tokenHeader = tokenHeader;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public void setTokenPrefix(String tokenPrefix) {

@@ -1,11 +1,14 @@
 package com.junshijun.hub.idea.config;
 
 import com.junshijun.hub.idea.security.*;
+import com.junshijun.hub.idea.security.filter.JwtAuthenticationFilter;
+import com.junshijun.hub.idea.security.filter.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -61,13 +64,16 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserPermissionEvaluator userPermissionEvaluator;
 
+    private String[] antMatcherUrls = JwtConfig.antMatchers.split(",");
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     /**
-     * 借口权限验证
+     * 接口权限验证
+     *
      * @return
      */
     @Bean
@@ -79,11 +85,17 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 用户登陆验证
+     *
      * @param auth
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(userAuthenticationProvider);
+    }
+
+    @Override
+    public void configure(WebSecurity webSecurity) {
+        webSecurity.ignoring().antMatchers(antMatcherUrls);
     }
 
     /**
@@ -92,10 +104,11 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() // 权限配置
-                .antMatchers(JwtConfig.antMatchers.split(",")).permitAll()// 获取白名单（不进行权限验证）
+                .antMatchers(antMatcherUrls).permitAll()// 获取白名单（不进行权限验证）
                 .anyRequest().authenticated() // 其他的需要登陆后才能访问
                 .and().httpBasic().authenticationEntryPoint(userNotLoginHandler) // 配置未登录处理类
-                .and().formLogin().loginProcessingUrl("/login/submit")// 配置登录URL
+                .and().formLogin().loginProcessingUrl("/login")// 配置登录URL
+                .usernameParameter("login_name").passwordParameter("password")
                 .successHandler(userLoginSuccessHandler) // 配置登录成功处理类
                 .failureHandler(userLoginFailureHandler) // 配置登录失败处理类
                 .and().logout().logoutUrl("/logout/submit")// 配置登出地址
@@ -105,7 +118,7 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable(); // 禁用跨站请求伪造防护
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 禁用session（使用Token认证）
         http.headers().cacheControl(); // 禁用缓存
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager()));  //添加JWT过滤器
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager()));//添加JWT过滤器
     }
 
 }

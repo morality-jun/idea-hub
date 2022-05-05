@@ -31,6 +31,8 @@
         <freemarker.version>2.3.30</freemarker.version>
         <slf4j.version>1.7.31</slf4j.version>
         <velocity.version>2.3</velocity.version>
+        <spring-boot-validation.version>2.3.2.RELEASE</spring-boot-validation.version>
+        <javax.validation-api.version>2.0.1.Final</javax.validation-api.version>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +77,16 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot-validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

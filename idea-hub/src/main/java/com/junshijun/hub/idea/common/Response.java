@@ -45,7 +45,7 @@ public class Response {
         return response(200, "Success!", data);
     }
 
-    public static Response fail(Object data) {
-        return response(500, "Fail!", data);
+    public static Response fail(String msg) {
+        return response(500, msg, null);
     }
 }

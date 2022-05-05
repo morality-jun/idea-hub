@@ -16,4 +16,6 @@ public interface SysUserRepository extends IService<SysUser> {
     public Boolean removeByLoginName(String loginName);
 
     public SysUser getByLoginName(String loginName);
+
+    public Boolean isLoginNameExist(String loginName);
 }

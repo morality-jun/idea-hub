@@ -1,4 +1,4 @@
-package com.junshijun.hub.idea.security;
+package com.junshijun.hub.idea.security.filter;
 
 import com.junshijun.hub.idea.config.JwtConfig;
 import com.junshijun.hub.idea.entity.SysUserDetails;
@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws IOException, ServletException {
 
-        String token = request.getHeader(JwtConfig.tokenHeader);
+        String token = request.getHeader(JwtConfig.header);
 
         if (token != null && token.startsWith(JwtConfig.tokenPrefix)) {
             SysUserDetails sysUserDetails = JwtTokenUtils.parseAccessToken(token);

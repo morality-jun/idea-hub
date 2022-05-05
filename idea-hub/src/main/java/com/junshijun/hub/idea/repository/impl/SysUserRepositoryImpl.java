@@ -1,11 +1,10 @@
 package com.junshijun.hub.idea.repository.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.junshijun.hub.idea.entity.SysUser;
 import com.junshijun.hub.idea.mapper.SysUserMapper;
 import com.junshijun.hub.idea.repository.SysUserRepository;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +20,9 @@ public class SysUserRepositoryImpl extends ServiceImpl<SysUserMapper, SysUser> i
 
     @Override
     public Boolean removeByLoginName(String loginName) {
+        if (loginName == null) {
+            return null;
+        }
         LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SysUser::getLoginName, loginName);
         return remove(wrapper);
@@ -28,8 +30,21 @@ public class SysUserRepositoryImpl extends ServiceImpl<SysUserMapper, SysUser> i
 
     @Override
     public SysUser getByLoginName(String loginName) {
+        if (loginName == null) {
+            return null;
+        }
         LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StrUtil.isNotEmpty(loginName), SysUser::getLoginName, loginName);
+        wrapper.eq(SysUser::getLoginName, loginName);
         return getOne(wrapper);
+    }
+
+    @Override
+    public Boolean isLoginNameExist(String loginName) {
+        if (loginName == null) {
+            return Boolean.FALSE;
+        }
+        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUser::getLoginName, loginName);
+        return count(wrapper) > 0 ? Boolean.TRUE : Boolean.FALSE;
     }
 }

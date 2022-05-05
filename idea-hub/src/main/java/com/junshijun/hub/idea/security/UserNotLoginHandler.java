@@ -19,6 +19,6 @@ public class UserNotLoginHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)
             throws IOException, ServletException {
-        Response.responseByServlet(httpServletResponse, Response.response(401, "Not Logined!", e.getMessage()));
+        Response.responseByServlet(httpServletResponse, Response.response(401, "Not login!", e.getMessage()));
     }
 }
