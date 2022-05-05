@@ -3,6 +3,8 @@ package com.junshijun.hub.idea.repository;
 import com.junshijun.hub.idea.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户角色关联表 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysUserRoleRepository extends IService<SysUserRole> {
 
+    List<SysUserRole> listByUserId(Long userId);
 }

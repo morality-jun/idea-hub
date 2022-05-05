@@ -1,10 +1,14 @@
 package com.junshijun.hub.idea.repository.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.junshijun.hub.idea.entity.SysPermission;
 import com.junshijun.hub.idea.mapper.SysPermissionMapper;
 import com.junshijun.hub.idea.repository.SysPermissionRepository;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysPermissionRepositoryImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements SysPermissionRepository {
-
 }

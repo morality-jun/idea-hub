@@ -1,7 +1,9 @@
 package com.junshijun.hub.idea.repository;
 
-import com.junshijun.hub.idea.entity.SysPermission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.junshijun.hub.idea.entity.SysPermission;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +14,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-04
  */
 public interface SysPermissionRepository extends IService<SysPermission> {
-
 }

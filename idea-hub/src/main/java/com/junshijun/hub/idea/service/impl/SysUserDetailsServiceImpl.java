@@ -4,7 +4,7 @@ import com.junshijun.hub.idea.entity.SysRole;
 import com.junshijun.hub.idea.entity.SysUser;
 import com.junshijun.hub.idea.entity.SysUserDetails;
 import com.junshijun.hub.idea.service.SysUserDetailsService;
-import com.junshijun.hub.idea.service.SysUserService;
+import com.junshijun.hub.idea.service.SysAuthService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class SysUserDetailsServiceImpl implements SysUserDetailsService {
 
     @Resource
-    private SysUserService sysUserService;
+    private SysAuthService sysUserService;
 
     @Override
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {

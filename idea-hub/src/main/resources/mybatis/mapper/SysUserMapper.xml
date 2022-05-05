@@ -4,20 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.junshijun.hub.idea.entity.SysUser">
-        <id column="user_id" property="userId"/>
-        <result column="login_name" property="loginName"/>
-        <result column="password" property="password"/>
-        <result column="version" property="version"/>
-        <result column="is_deleted" property="isDeleted"/>
-        <result column="created_by" property="createdBy"/>
-        <result column="created_time" property="createdTime"/>
-        <result column="modified_by" property="modifiedBy"/>
-        <result column="modified_time" property="modifiedTime"/>
+        <id column="user_id" property="userId" />
+        <result column="login_name" property="loginName" />
+        <result column="password" property="password" />
+        <result column="version" property="version" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, login_name, password, version, is_deleted, created_by, created_time, modified_by, modified_time
+        user_id, login_name, `password`, version, is_deleted, created_by, created_time, modified_by, modified_time
     </sql>
 
 </mapper>

@@ -1,7 +1,10 @@
 package com.junshijun.hub.idea.repository;
 
+import com.junshijun.hub.idea.entity.SysRole;
 import com.junshijun.hub.idea.entity.SysRolePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysRolePermissionRepository extends IService<SysRolePermission> {
 
+    List<SysRolePermission> listByRoleIds(List<Long> roleIds);
 }

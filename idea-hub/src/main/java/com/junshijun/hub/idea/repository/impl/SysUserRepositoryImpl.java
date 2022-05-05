@@ -1,5 +1,6 @@
 package com.junshijun.hub.idea.repository.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.junshijun.hub.idea.entity.SysUser;
 import com.junshijun.hub.idea.mapper.SysUserMapper;
@@ -26,9 +27,9 @@ public class SysUserRepositoryImpl extends ServiceImpl<SysUserMapper, SysUser> i
     }
 
     @Override
-    public SysUser findByLoginName(String loginName) {
+    public SysUser getByLoginName(String loginName) {
         LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(SysUser::getLoginName, loginName);
+        wrapper.eq(StrUtil.isNotEmpty(loginName), SysUser::getLoginName, loginName);
         return getOne(wrapper);
     }
 }

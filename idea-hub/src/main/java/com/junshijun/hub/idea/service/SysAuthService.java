@@ -6,7 +6,7 @@ import com.junshijun.hub.idea.entity.SysUser;
 
 import java.util.List;
 
-public interface SysUserService {
+public interface SysAuthService {
 
     /**
      * 通过用户名查询用户信息
