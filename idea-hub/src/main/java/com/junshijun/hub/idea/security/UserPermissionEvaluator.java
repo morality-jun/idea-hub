@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * 权限注解处理类
  */
-@Component
+@Component("authenticator")
 public class UserPermissionEvaluator implements PermissionEvaluator {
 
     @Resource

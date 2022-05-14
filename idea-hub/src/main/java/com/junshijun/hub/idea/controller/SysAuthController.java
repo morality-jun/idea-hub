@@ -1,5 +1,6 @@
 package com.junshijun.hub.idea.controller;
 
+import com.junshijun.hub.idea.model.bo.LoginBO;
 import com.junshijun.hub.idea.model.bo.RegisterBO;
 import com.junshijun.hub.idea.common.Response;
 import com.junshijun.hub.idea.service.SysAuthService;
@@ -23,9 +24,8 @@ public class SysAuthController {
         return sysAuthService.register(registerInfo) ? Response.success(null) : Response.fail("System is Busy, Try it Later!");
     }
 
-//    @GetMapping("/login")
-//    public Response login(@RequestParam(value = "login_name") @NotBlank String login_name,
-//                          @RequestParam(value = "password") @NotBlank String password) {
-//
-//    }
+    @GetMapping("/login")
+    public Response login(@RequestBody @Validated LoginBO loginInfo) {
+        return Response.success(sysAuthService.loginAndGetToken(loginInfo));
+    }
 }

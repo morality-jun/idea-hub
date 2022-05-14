@@ -1,5 +1,6 @@
 package com.junshijun.hub.idea.service;
 
+import com.junshijun.hub.idea.model.bo.LoginBO;
 import com.junshijun.hub.idea.model.bo.RegisterBO;
 import com.junshijun.hub.idea.entity.SysPermission;
 import com.junshijun.hub.idea.entity.SysRole;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface SysAuthService {
 
-    LoginTokenDTO loginAndGetToken(String loginName, String password);
+    LoginTokenDTO loginAndGetToken(LoginBO loginInfo);
 
     /**
      * 查询用户名是否存在

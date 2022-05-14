@@ -93,10 +93,10 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(userAuthenticationProvider);
     }
 
-    @Override
-    public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers(antMatcherUrls);
-    }
+//    @Override
+//    public void configure(WebSecurity webSecurity) {
+//        webSecurity.ignoring().antMatchers(antMatcherUrls);
+//    }
 
     /**
      * 安全权限配置
@@ -104,21 +104,17 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() // 权限配置
-                .antMatchers(antMatcherUrls).permitAll()// 获取白名单（不进行权限验证）
+                .antMatchers(antMatcherUrls).anonymous()// 获取白名单（不进行权限验证）
                 .anyRequest().authenticated() // 其他的需要登陆后才能访问
                 .and().httpBasic().authenticationEntryPoint(userNotLoginHandler) // 配置未登录处理类
-                .and().formLogin().loginProcessingUrl("/login")// 配置登录URL
-                .usernameParameter("login_name").passwordParameter("password")
-                .successHandler(userLoginSuccessHandler) // 配置登录成功处理类
-                .failureHandler(userLoginFailureHandler) // 配置登录失败处理类
-                .and().logout().logoutUrl("/logout/submit")// 配置登出地址
+                .and().logout().logoutUrl("/auth/logout")// 配置登出地址
                 .logoutSuccessHandler(userLogoutSuccessHandler) // 配置用户登出处理类
                 .and().exceptionHandling().accessDeniedHandler(userAccessDeniedHandler)// 配置没有权限处理类
                 .and().cors()// 开启跨域
-                .and().csrf().disable(); // 禁用跨站请求伪造防护
+                .and().csrf().disable() // 禁用跨站请求伪造防护
+                .addFilter(new JwtAuthenticationFilter(authenticationManager()));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 禁用session（使用Token认证）
         http.headers().cacheControl(); // 禁用缓存
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager()));//添加JWT过滤器
     }
 
 }

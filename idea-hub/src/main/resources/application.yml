@@ -26,4 +26,4 @@ jwt:
   secret: mySecret
   expiration: 3400
   tokenPrefix: Bearer
-  antMatchers: /auth/login,/auth/refresh,/auth/register
+  antMatchers: /auth/login,/auth/register

@@ -1,12 +1,18 @@
 package com.junshijun.hub.idea.service.impl;
 
+import com.junshijun.hub.idea.model.bo.LoginBO;
 import com.junshijun.hub.idea.model.bo.RegisterBO;
 import com.junshijun.hub.idea.common.exception.LoginNameExistException;
 import com.junshijun.hub.idea.entity.*;
 import com.junshijun.hub.idea.model.dto.LoginTokenDTO;
 import com.junshijun.hub.idea.repository.*;
+import com.junshijun.hub.idea.security.UserAuthenticationProvider;
+import com.junshijun.hub.idea.security.utils.JwtTokenUtils;
 import com.junshijun.hub.idea.service.SysAuthService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +38,16 @@ public class AuthServiceImpl implements SysAuthService {
     @Resource
     private SysRolePermissionRepository sysRolePermissionRepository;
 
+    @Resource
+    private UserAuthenticationProvider userAuthenticationProvider;
+
     @Override
-    public LoginTokenDTO loginAndGetToken(String loginName, String password) {
-        return null;
+    public LoginTokenDTO loginAndGetToken(LoginBO loginInfo) {
+        Authentication authenticate = userAuthenticationProvider
+                .authenticate(new UsernamePasswordAuthenticationToken(loginInfo.getLoginName(), loginInfo.getPassword()));
+        SysUserDetails principal = (SysUserDetails) authenticate.getPrincipal();
+        LoginTokenDTO loginTokenDTO = new LoginTokenDTO().setToken(JwtTokenUtils.createAccessToken(principal));
+        return loginTokenDTO;
     }
 
     @Override
