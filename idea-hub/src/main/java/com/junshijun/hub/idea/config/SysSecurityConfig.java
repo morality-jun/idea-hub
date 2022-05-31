@@ -66,6 +66,17 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private String[] antMatcherUrls = JwtConfig.antMatchers.split(",");
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/swagger-ui.html/**",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/swagger-config",
+            "/webjars/**",
+            "/doc.html",
+    };
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -104,7 +115,8 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() // 权限配置
-                .antMatchers(antMatcherUrls).anonymous()// 获取白名单（不进行权限验证）
+                .antMatchers(antMatcherUrls).anonymous()
+                .antMatchers(SWAGGER_WHITELIST).anonymous() // 获取白名单（不进行权限验证）
                 .anyRequest().authenticated() // 其他的需要登陆后才能访问
                 .and().httpBasic().authenticationEntryPoint(userNotLoginHandler) // 配置未登录处理类
                 .and().logout().logoutUrl("/auth/logout")// 配置登出地址
