@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/all")
-    @PreAuthorize(value = "@authenticator.hasPermission('all')")
+    @PreAuthorize(value = "@authenticator.hasPermission('ROLE_super_admin')")
     @ApiOperation("测试接口")
     public Response all() {
         return Response.success(null);

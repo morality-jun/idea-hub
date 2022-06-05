@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junshijun.hub.idea.mapper.SysApiPermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.junshijun.hub.idea.entity.SysApiPermission">
+        <id column="api_permission_id" property="apiPermissionId"/>
+        <result column="api_id" property="apiId"/>
+        <result column="permission_id" property="permissionId"/>
+        <result column="version" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_by" property="modifiedBy"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+    <resultMap id="ApiPermissionVO" type="com.junshijun.hub.idea.model.vo.ApiPermissionVO">
+        <result column="api_code" property="apiCode"/>
+        <result column="api_url" property="apiUrl"/>
+        <result column="permission_code" property="permissionCode"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        api_permission_id
+        , api_id, permission_id, version, is_deleted, created_by, created_time, modified_by, modified_time
+    </sql>
+
+    <select id="findAllApiPermission" resultMap="ApiPermissionVO">
+        select sap.api_code
+             , sap.api_url
+             , sap.permission_code
+        from sys_api_permission sap
+                 join (select api_code, api_url, api_id from sys_api where is_deleted = 0) sa on
+            sa.api_id = sap.api_id
+                 join (select permission_id, permission_code from sys_permission where is_deleted = 0) sp
+                      on sp.permission_id = sap.permission_id
+        where sap.is_deleted = 0;
+    </select>
+
+</mapper>

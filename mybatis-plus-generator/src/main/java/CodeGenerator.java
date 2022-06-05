@@ -66,7 +66,7 @@ public class CodeGenerator {
                 .packageName("com.junshijun.hub.idea")
                 .modelName(null)
                 .tableNames(new String[]{
-                        "sys_role", "sys_user", "sys_permission", "sys_role_permission", "sys_user_role"
+                        "sys_api", "sys_api_permission"
                 })
                 // <<<< 通常手工配置项 End
                 .build()

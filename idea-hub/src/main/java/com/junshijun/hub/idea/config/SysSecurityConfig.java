@@ -2,17 +2,17 @@ package com.junshijun.hub.idea.config;
 
 import com.junshijun.hub.idea.security.*;
 import com.junshijun.hub.idea.security.filter.JwtAuthenticationFilter;
-import com.junshijun.hub.idea.security.filter.LoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 import javax.annotation.Resource;
@@ -77,9 +77,19 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
             "/doc.html",
     };
 
+    private static final String[] OAUTH_WHITELIST = {
+      "/oauth/token"
+    };
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     /**
@@ -117,6 +127,7 @@ public class SysSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests() // 权限配置
                 .antMatchers(antMatcherUrls).anonymous()
                 .antMatchers(SWAGGER_WHITELIST).anonymous() // 获取白名单（不进行权限验证）
+                .antMatchers(OAUTH_WHITELIST).anonymous()
                 .anyRequest().authenticated() // 其他的需要登陆后才能访问
                 .and().httpBasic().authenticationEntryPoint(userNotLoginHandler) // 配置未登录处理类
                 .and().logout().logoutUrl("/auth/logout")// 配置登出地址
