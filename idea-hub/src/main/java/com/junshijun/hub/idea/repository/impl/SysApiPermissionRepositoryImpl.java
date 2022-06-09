@@ -3,7 +3,7 @@ package com.junshijun.hub.idea.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.junshijun.hub.idea.entity.SysApiPermission;
 import com.junshijun.hub.idea.mapper.SysApiPermissionMapper;
-import com.junshijun.hub.idea.model.vo.ApiPermissionVO;
+import com.junshijun.hub.idea.model.vo.AuthApiPermissionVO;
 import com.junshijun.hub.idea.repository.SysApiPermissionRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +26,8 @@ public class SysApiPermissionRepositoryImpl extends ServiceImpl<SysApiPermission
     private SysApiPermissionMapper sysApiPermissionMapper;
 
     @Override
-    public List<ApiPermissionVO> findAllApiPermission() {
-        List<ApiPermissionVO> allApiPermission = sysApiPermissionMapper.findAllApiPermission();
+    public List<AuthApiPermissionVO> findAllApiPermission() {
+        List<AuthApiPermissionVO> allApiPermission = sysApiPermissionMapper.findAllApiPermission();
         return allApiPermission == null ? Collections.emptyList() : allApiPermission;
     }
 }

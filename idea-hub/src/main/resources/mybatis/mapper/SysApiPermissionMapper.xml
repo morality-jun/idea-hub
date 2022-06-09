@@ -15,10 +15,12 @@
         <result column="modified_time" property="modifiedTime"/>
     </resultMap>
 
-    <resultMap id="ApiPermissionVO" type="com.junshijun.hub.idea.model.vo.ApiPermissionVO">
+    <resultMap id="ApiPermissionVO" type="com.junshijun.hub.idea.model.vo.AuthApiPermissionVO">
         <result column="api_code" property="apiCode"/>
         <result column="api_url" property="apiUrl"/>
-        <result column="permission_code" property="permissionCode"/>
+        <collection property="permissionCodes" javaType="java.util.List" ofType="java.lang.String">
+            <result column="permission_code"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -28,9 +30,9 @@
     </sql>
 
     <select id="findAllApiPermission" resultMap="ApiPermissionVO">
-        select sap.api_code
-             , sap.api_url
-             , sap.permission_code
+        select sa.api_code        api_code
+             , sa.api_url         api_url
+             , sp.permission_code permission_code
         from sys_api_permission sap
                  join (select api_code, api_url, api_id from sys_api where is_deleted = 0) sa on
             sa.api_id = sap.api_id

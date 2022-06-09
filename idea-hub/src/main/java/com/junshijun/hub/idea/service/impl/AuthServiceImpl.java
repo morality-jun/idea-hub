@@ -5,6 +5,7 @@ import com.junshijun.hub.idea.model.bo.RegisterBO;
 import com.junshijun.hub.idea.common.exception.LoginNameExistException;
 import com.junshijun.hub.idea.entity.*;
 import com.junshijun.hub.idea.model.dto.LoginTokenDTO;
+import com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO;
 import com.junshijun.hub.idea.repository.*;
 import com.junshijun.hub.idea.security.UserAuthenticationProvider;
 import com.junshijun.hub.idea.security.utils.JwtTokenUtils;
@@ -89,5 +90,10 @@ public class AuthServiceImpl implements SysAuthService {
         List<SysRolePermission> sysRolePermissions = sysRolePermissionRepository.listByRoleIds(roleIds);
         List<Long> permissionId = sysRolePermissions.stream().map(SysRolePermission::getRoleId).collect(Collectors.toList());
         return sysPermissionRepository.listByIds(permissionId);
+    }
+
+    @Override
+    public AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName) {
+        return sysUserRepository.getUserRolePermissionByLoginName(loginName);
     }
 }

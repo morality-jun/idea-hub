@@ -6,6 +6,7 @@ import com.junshijun.hub.idea.entity.SysPermission;
 import com.junshijun.hub.idea.entity.SysRole;
 import com.junshijun.hub.idea.entity.SysUser;
 import com.junshijun.hub.idea.model.dto.LoginTokenDTO;
+import com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO;
 
 import java.util.List;
 
@@ -47,4 +48,6 @@ public interface SysAuthService {
      * @return
      */
     List<SysPermission> getPermissionByUserId(Long userId);
+
+    AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName);
 }

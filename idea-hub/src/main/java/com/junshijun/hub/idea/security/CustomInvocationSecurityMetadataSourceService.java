@@ -1,6 +1,6 @@
 package com.junshijun.hub.idea.security;
 
-import com.junshijun.hub.idea.model.vo.ApiPermissionVO;
+import com.junshijun.hub.idea.model.vo.AuthApiPermissionVO;
 import com.junshijun.hub.idea.service.SysApiService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -65,13 +65,16 @@ public class CustomInvocationSecurityMetadataSourceService implements FilterInvo
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg;
 
-        List<ApiPermissionVO> allApiPermission = sysApiService.findAllApiPermission();
-        for (ApiPermissionVO item : allApiPermission) {
+        List<AuthApiPermissionVO> allApiPermission = sysApiService.findAllApiPermission();
+        for (AuthApiPermissionVO item : allApiPermission) {
             array = new ArrayList<>();
-            cfg = new SecurityConfig(item.getPermissionCode());
-            //此处只添加了权限的的编码，其实还可以添加更多权限的信息，例如请求方法到ConfigAttribute的集合中去。此处添加的信息将会作为MyAccessDecisionManager类的decide的第三个参数。
-            array.add(cfg);
-            //用Api的Url 作为map的key，用ConfigAttribute的集合作为 value，
+
+            for (String permissionCode : item.getPermissionCodes()) {
+                //此处只添加了权限的的编码，其实还可以添加更多权限的信息，例如请求方法到ConfigAttribute的集合中去。此处添加的信息将会作为MyAccessDecisionManager类的decide的第三个参数。
+                cfg = new SecurityConfig(permissionCode);
+                //用Api的Url 作为map的key，用ConfigAttribute的集合作为 value，
+                array.add(cfg);
+            }
             map.put(item.getApiUrl(), array);
         }
     }

@@ -4,20 +4,49 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.junshijun.hub.idea.entity.SysUser">
-        <id column="user_id" property="userId" />
-        <result column="login_name" property="loginName" />
-        <result column="password" property="password" />
-        <result column="version" property="version" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="created_by" property="createdBy" />
-        <result column="created_time" property="createdTime" />
-        <result column="modified_by" property="modifiedBy" />
-        <result column="modified_time" property="modifiedTime" />
+        <id column="user_id" property="userId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="version" property="version"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_by" property="modifiedBy"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+    <resultMap id="UserRolePermissionVO" type="com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO">
+        <id column="user_id" property="userId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <collection property="roleCodes" javaType="java.util.List" ofType="java.lang.String">
+            <result column="role_code"/>
+        </collection>
+        <collection property="permissionCodes" javaType="java.util.List" ofType="java.lang.String">
+            <result column="permission_code"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, login_name, `password`, version, is_deleted, created_by, created_time, modified_by, modified_time
+        user_id
+        , login_name, `password`, version, is_deleted, created_by, created_time, modified_by, modified_time
     </sql>
+
+    <select id="getUserRolePermissionByLoginName" resultMap="UserRolePermissionVO">
+        select su.user_id         user_id,
+               su.login_name      login_name,
+               su.password        password,
+               sr.role_code       role_code,
+               sp.permission_code permission_code
+        from (select user_id, login_name, password from sys_user where is_deleted = 0 and login_name = #{loginName}) su
+                 left join (select user_id, role_id from sys_user_role where is_deleted = 0) sur
+                           on sur.user_id = su.user_id
+                 left join (select role_id, role_code from sys_role where is_deleted = 0) sr on sr.role_id = sur.role_id
+                 left join (select role_id, permission_id from sys_role_permission where is_deleted = 0) srp
+                           on srp.role_id = sur.role_id
+                 left join (select permission_id, permission_code from sys_permission where is_deleted = 0) sp
+                           on sp.permission_id = srp.permission_id;
+    </select>
 
 </mapper>

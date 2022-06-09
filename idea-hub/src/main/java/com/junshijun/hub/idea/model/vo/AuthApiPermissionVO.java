@@ -1,17 +1,15 @@
 package com.junshijun.hub.idea.model.vo;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
-@Accessors(chain = true)
-public class ApiPermissionVO {
+public class AuthApiPermissionVO {
 
     private String apiCode;
 
     private String apiUrl;
 
-    private String permissionCode;
+    private List<String> permissionCodes;
 }

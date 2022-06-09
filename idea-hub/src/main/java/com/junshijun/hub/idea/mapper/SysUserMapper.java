@@ -1,7 +1,8 @@
 package com.junshijun.hub.idea.mapper;
 
-import com.junshijun.hub.idea.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.junshijun.hub.idea.entity.SysUser;
+import com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName);
 }

@@ -3,6 +3,7 @@ package com.junshijun.hub.idea.service.impl;
 import com.junshijun.hub.idea.entity.SysRole;
 import com.junshijun.hub.idea.entity.SysUser;
 import com.junshijun.hub.idea.entity.SysUserDetails;
+import com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO;
 import com.junshijun.hub.idea.service.SysUserDetailsService;
 import com.junshijun.hub.idea.service.SysAuthService;
 import org.springframework.beans.BeanUtils;
@@ -21,19 +22,19 @@ import java.util.Set;
 public class SysUserDetailsServiceImpl implements SysUserDetailsService {
 
     @Resource
-    private SysAuthService sysUserService;
+    private SysAuthService sysAuthService;
 
     @Override
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserService.getUserByLoginName(loginName);
-        if (sysUser != null) {
+        AuthUserRolePermissionVO userRolePermission = sysAuthService.getUserRolePermissionByLoginName(loginName);
+        if (userRolePermission != null) {
             SysUserDetails sysUserDetails = new SysUserDetails();
-            BeanUtils.copyProperties(sysUser, sysUserDetails);
+            BeanUtils.copyProperties(userRolePermission, sysUserDetails);
 
             Set<GrantedAuthority> authorities = new HashSet<>();
-            List<SysRole> sysRoles = sysUserService.getRoleByUserId(sysUser.getUserId());
-            sysRoles.forEach(sysRole -> {
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + sysRole.getRoleCode()));
+
+            userRolePermission.getPermissionCodes().forEach(permissionCode -> {
+                authorities.add(new SimpleGrantedAuthority(permissionCode));
             });
 
             sysUserDetails.setAuthorities(authorities);

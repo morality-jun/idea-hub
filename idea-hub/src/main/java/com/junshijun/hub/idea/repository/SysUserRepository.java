@@ -2,6 +2,9 @@ package com.junshijun.hub.idea.repository;
 
 import com.junshijun.hub.idea.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.junshijun.hub.idea.model.vo.AuthUserRolePermissionVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,6 @@ public interface SysUserRepository extends IService<SysUser> {
     public SysUser getByLoginName(String loginName);
 
     public Boolean isLoginNameExist(String loginName);
+
+    AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName);
 }

@@ -1,6 +1,6 @@
 package com.junshijun.hub.idea.service.impl;
 
-import com.junshijun.hub.idea.model.vo.ApiPermissionVO;
+import com.junshijun.hub.idea.model.vo.AuthApiPermissionVO;
 import com.junshijun.hub.idea.repository.SysApiPermissionRepository;
 import com.junshijun.hub.idea.service.SysApiService;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class SysApiServiceImpl implements SysApiService {
     private SysApiPermissionRepository sysApiPermissionRepository;
 
     @Override
-    public List<ApiPermissionVO> findAllApiPermission() {
+    public List<AuthApiPermissionVO> findAllApiPermission() {
         return sysApiPermissionRepository.findAllApiPermission();
     }
 }

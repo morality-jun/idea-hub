@@ -2,7 +2,7 @@ package com.junshijun.hub.idea.mapper;
 
 import com.junshijun.hub.idea.entity.SysApiPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.junshijun.hub.idea.model.vo.ApiPermissionVO;
+import com.junshijun.hub.idea.model.vo.AuthApiPermissionVO;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface SysApiPermissionMapper extends BaseMapper<SysApiPermission> {
 
-    List<ApiPermissionVO> findAllApiPermission();
+    List<AuthApiPermissionVO> findAllApiPermission();
 }

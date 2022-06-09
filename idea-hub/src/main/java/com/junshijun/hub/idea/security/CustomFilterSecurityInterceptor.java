@@ -4,11 +4,13 @@ import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.*;
 import java.io.IOException;
 
+@Component
 public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Resource
