@@ -27,6 +27,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private int tokenExpiredSecond;
+
     /**
      * 对Jwt签名时，增加一个密钥
      * JwtAccessTokenConverter：对Jwt来进行编码以及解码的类
@@ -58,6 +60,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("clientapp")
+                .accessTokenValiditySeconds(this.tokenExpiredSecond)
                 .secret(bCryptPasswordEncoder.encode("123"))
                 .scopes("read")
                 //设置支持[密码模式、授权码模式、token刷新]

@@ -14,7 +14,7 @@ security:
       jwt:
         key-value: test-secretauth
 auth:
-  test: 1111
+  token-expired-second: 60
   resource-whitelist:
     # swagger相关路径
     - /swagger-ui.html/**
