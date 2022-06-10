@@ -66,7 +66,7 @@ public class CodeGenerator {
                 .packageName("com.junshijun.hub.idea")
                 .modelName(null)
                 .tableNames(new String[]{
-                        "sys_api", "sys_api_permission"
+                        "oauth_client_details"
                 })
                 // <<<< 通常手工配置项 End
                 .build()

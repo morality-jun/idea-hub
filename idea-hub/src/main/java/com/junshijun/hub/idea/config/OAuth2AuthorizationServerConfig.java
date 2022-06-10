@@ -1,5 +1,6 @@
 package com.junshijun.hub.idea.config;
 
+import com.junshijun.hub.idea.service.AuthClientDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Resource
+    private AuthClientDetailsService authClientDetailsService;
 
     private int tokenExpiredSecond;
 
@@ -58,15 +62,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("clientapp")
-                .accessTokenValiditySeconds(this.tokenExpiredSecond)
-                .secret(bCryptPasswordEncoder.encode("123"))
-                .scopes("read")
-                //设置支持[密码模式、授权码模式、token刷新]
-                .authorizedGrantTypes(
-                        "password",
-                        "authorization_code",
-                        "refresh_token");
+        clients.withClientDetails(authClientDetailsService);
     }
 }

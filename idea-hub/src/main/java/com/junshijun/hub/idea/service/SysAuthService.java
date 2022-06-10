@@ -1,5 +1,6 @@
 package com.junshijun.hub.idea.service;
 
+import com.junshijun.hub.idea.entity.OauthClientDetail;
 import com.junshijun.hub.idea.model.bo.LoginBO;
 import com.junshijun.hub.idea.model.bo.RegisterBO;
 import com.junshijun.hub.idea.entity.SysPermission;
@@ -50,4 +51,6 @@ public interface SysAuthService {
     List<SysPermission> getPermissionByUserId(Long userId);
 
     AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName);
+
+    OauthClientDetail getOauthClientDetailByClientId(String clientId);
 }

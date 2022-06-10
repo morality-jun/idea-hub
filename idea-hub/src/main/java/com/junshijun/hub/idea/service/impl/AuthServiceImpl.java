@@ -11,7 +11,6 @@ import com.junshijun.hub.idea.security.UserAuthenticationProvider;
 import com.junshijun.hub.idea.security.utils.JwtTokenUtils;
 import com.junshijun.hub.idea.service.SysAuthService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +40,9 @@ public class AuthServiceImpl implements SysAuthService {
 
     @Resource
     private UserAuthenticationProvider userAuthenticationProvider;
+
+    @Resource
+    private OauthClientDetailRepository oauthClientDetailRepository;
 
     @Override
     public LoginTokenDTO loginAndGetToken(LoginBO loginInfo) {
@@ -95,5 +97,13 @@ public class AuthServiceImpl implements SysAuthService {
     @Override
     public AuthUserRolePermissionVO getUserRolePermissionByLoginName(String loginName) {
         return sysUserRepository.getUserRolePermissionByLoginName(loginName);
+    }
+
+    @Override
+    public OauthClientDetail getOauthClientDetailByClientId(String clientId) {
+        if (clientId == null) {
+            return null;
+        }
+        return oauthClientDetailRepository.getById(clientId);
     }
 }

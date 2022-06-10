@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junshijun.hub.idea.mapper.OauthClientDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.junshijun.hub.idea.entity.OauthClientDetail">
+        <id column="client_id" property="clientId" />
+        <result column="resource_ids" property="resourceIds" />
+        <result column="client_secret" property="clientSecret" />
+        <result column="scope" property="scope" />
+        <result column="authorized_grant_types" property="authorizedGrantTypes" />
+        <result column="web_server_redirect_uris" property="webServerRedirectUris" />
+        <result column="authorities" property="authorities" />
+        <result column="access_token_validity_seconds" property="accessTokenValiditySeconds" />
+        <result column="refresh_token_validity_seconds" property="refreshTokenValiditySeconds" />
+        <result column="additional_information" property="additionalInformation" />
+        <result column="autoapprove" property="autoapprove" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove, is_deleted, created_by, created_time, modified_by, modified_time
+    </sql>
+
+</mapper>
