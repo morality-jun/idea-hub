@@ -4,8 +4,10 @@ import com.junshijun.hub.idea.converter.AuthClientDetailConverter;
 import com.junshijun.hub.idea.entity.OauthClientDetail;
 import com.junshijun.hub.idea.service.AuthClientDetailsService;
 import com.junshijun.hub.idea.service.SysAuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 
 @Service
 @Primary
+@Slf4j
 public class AuthClientDetailsImpl implements AuthClientDetailsService {
 
     @Resource
